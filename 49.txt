@@ -1,0 +1,40 @@
+Question 49.) Group Anagram
+Given an array of strings strs, group the anagrams together. You can return the answer in any order.
+
+solution.) -->
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        vector<vector<string>> res;
+
+        unordered_map<string, vector<string>> mp;
+        for(int i=0; i<strs.size(); i++){
+            string temp = strs[i];
+            sort(temp.begin(), temp.end());
+            mp[temp].push_back(strs[i]);
+        }
+
+        for(auto i:mp){
+            cout<<i.first<<"  -->  ";
+            for(auto j:i.second){
+                cout<<j<<" ";
+            }
+            cout<<endl;
+        }
+
+        for(auto i:mp){
+            res.push_back(i.second);
+        }
+
+        return res;
+    }
+};
+
+In this we make a map function inside it we take one is string and other is for vector of string where we store our array element which match the string. But we didn't simple do this we have to make a temporary variable which checks the string value and the temporary variable are same or not by doing sorting of each element in the array (which sorted in temporary variable) and then push the real element in the new final array.
+
+Time Complexity :- O(n.klog(k))
+n --> for the element in the array.
+k.log(k) --> sorting of all the element in the array.
+
+Space Complexity :- O(n.k)
+n --> storing vector string in the map function.
