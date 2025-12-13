@@ -1,0 +1,60 @@
+Question 3606.) Coupon Code Validator
+You are given three arrays of length n that describe the properties of n coupons: code, businessLine, and isActive. The ith coupon has:
+
+code[i]: a string representing the coupon identifier.
+businessLine[i]: a string denoting the business category of the coupon.
+isActive[i]: a boolean indicating whether the coupon is currently active.
+A coupon is considered valid if all of the following conditions hold:
+
+code[i] is non-empty and consists only of alphanumeric characters (a-z, A-Z, 0-9) and underscores (_).
+businessLine[i] is one of the following four categories: "electronics", "grocery", "pharmacy", "restaurant".
+isActive[i] is true.
+Return an array of the codes of all valid coupons, sorted first by their businessLine in the order: "electronics", "grocery", "pharmacy", "restaurant", and then by code in lexicographical (ascending) order within each category.
+
+solution.)-->
+class Solution {
+public:
+    bool checkCode(string& temp) {
+        for (auto i : temp) {
+            if(!(isalnum(i) || i == '_')){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    bool checkBus(string& str) {
+        unordered_set<string> str1 = {"electronics", "grocery", "pharmacy",
+                                      "restaurant"};
+        if (str1.find(str) == str1.end()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    bool checkAct(bool val) { return val; }
+
+    vector<string> validateCoupons(vector<string>& code,
+                                   vector<string>& businessLine,
+                                   vector<bool>& isActive) {
+        vector<string> res;
+        int n = code.size();
+        for (int i = 0; i < n; i++) {
+            if (checkCode(code[i]) && checkBus(businessLine[i]) &&
+                checkAct(isActive[i]) && code[i].size() > 0) {
+                res.push_back(code[i]);
+            }
+        }
+        sort(res.begin(), res.end());
+        return res;
+    }
+};
+
+in this question i get everything which question want to say but i am not able to get lexicographical order in my first attempt.
+
+Time Complexity:
+O(n · k + n log n)
+
+Space Complexity:
+O(n)
