@@ -53,6 +53,64 @@ public:
 
 in this question i get everything which question want to say but i am not able to get lexicographical order in my first attempt.
 
+as this we have to store in lexicographical order so i have make the changes in my code to make in this order and i get correct result.
+
+// For priority purpose   Global map
+unordered_map<string, int> mp = {
+    {"electronics", 0},
+    {"grocery", 1},
+    {"pharmacy", 2},
+    {"restaurant", 3}
+};
+// For sorting purpose  Use sorting function user-build sort function with inbulid sort function..
+bool cmp(const pair<string, string>& a, const pair<string, string>& b) {
+    if (mp[a.first] != mp[b.first])
+        return mp[a.first] < mp[b.first];
+    return a.second < b.second;
+}
+
+class Solution {
+public:
+    // For Code Vaild or not
+    bool coupon(string& temp){
+        if(temp.size() < 1) return false;
+
+        for(auto i:temp){
+            if(!(isalnum(i) || i == '_')){
+                return false;
+            }
+        }
+        return true;
+    }
+    // For BusinessLine Valid or not
+    bool business(string& str){
+        return (mp.find(str) != mp.end());
+    }
+
+    vector<string> validateCoupons(vector<string>& code, vector<string>& businessLine, vector<bool>& isActive) {
+        int n = code.size();
+        vector<pair<string, string>> check;
+        for(int i=0; i<n; i++){
+            if(coupon(code[i]) && business(businessLine[i]) && isActive[i]){
+                check.push_back({businessLine[i], code[i]});
+            }
+        }
+
+        sort(check.begin(), check.end(), cmp);
+
+        for(auto i:check){
+            cout<<i.first<<" "<<i.second<<endl;
+        }
+
+        vector<string> res;
+        for(auto i:check){
+            res.push_back(i.second);
+        }
+
+        return res;
+    }
+};
+
 Time Complexity:
 O(n · k + n log n)
 
