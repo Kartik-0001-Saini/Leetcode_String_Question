@@ -1,0 +1,33 @@
+Question 168.) --> Excel Sheet Column Title
+
+Given an integer columnNumber, return its corresponding column title as it appears in an Excel sheet.
+
+For example:
+
+A -> 1
+B -> 2
+C -> 3
+...
+Z -> 26
+AA -> 27
+AB -> 28 
+...
+
+solution.)-->
+
+class Solution {
+public:
+    string convertToTitle(int columnNumber) {
+        string res = "";
+        while(columnNumber > 0){
+            columnNumber--;
+            res = char((columnNumber % 26) + 'A') + res;
+            columnNumber /= 26;
+        }
+
+        return res;
+    }
+};
+
+in this I have a res which is empty and in this we add upper case alphabet using  (columnNumber % 26) + 'A' we subtract 1 because we start with 0 to 26 in this.
+
