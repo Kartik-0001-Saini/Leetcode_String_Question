@@ -1,0 +1,21 @@
+Question 171.)--> Excel Sheet Column Number
+Given a string columnTitle that represents the column title as appears in an Excel sheet, return its corresponding column number.
+
+solution.)-->
+class Solution {
+public:
+    int titleToNumber(string col) {
+        int count = 0;
+        for(int i=0; i<col.size(); i++){
+            int dig = col[i] - 'A' + 1;    // This i dine because i have to convert char to int.[Every number is converting char to int]
+            cout<<dig<<endl;
+            count = count*26 + dig;
+        }
+
+        return count;
+    }
+};
+Time Complexity :- O(n)
+Space Complexity :- O(1)
+
+
