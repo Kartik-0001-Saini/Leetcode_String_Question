@@ -1,0 +1,38 @@
+Question 205.) --> Isomorphic Strings
+Given two strings s and t, determine if they are isomorphic.
+
+Two strings s and t are isomorphic if the characters in s can be replaced to get t.
+
+All occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character, but a character may map to itself.
+
+solution.)-->
+class Solution {
+public:
+    bool isIsomorphic(string s, string t) {
+        unordered_map<char, char> mp1;
+        unordered_map<char, char> mp2;
+
+        for(int i=0; i<s.size(); i++){
+            char char1 = s[i];
+            char char2 = t[i];
+
+            if(mp1.find(char1) != mp1.end() && mp1[char1] != char2){
+                return false;
+            }
+
+            if(mp2.find(char2) != mp2.end() && mp2[char2] != char1){
+                return false;
+            }
+
+            mp1[char1] = char2;
+            mp2[char2] = char1;
+        }
+
+        return true;
+    }
+};
+
+In this question I will take two maps and check each map that key of one is not equal to value of other one.
+If, it doesn't then I return false. Otherwise true.
+Time Complexity :- O(n)
+Space Complexity :- O(log(n))
