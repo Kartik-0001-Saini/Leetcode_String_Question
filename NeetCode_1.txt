@@ -1,0 +1,34 @@
+Question.) Longest Substring Without Repeating Character
+Given a string s, find the length of the longest substring without duplicate characters.
+
+A substring is a contiguous sequence of characters within a string.
+
+solution.)
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int left = 0, right = 0;
+        int n = s.size();
+        if(n<=1) return n;
+
+        int maxLen = 0;
+        string str = "";
+        while(right < n){
+            if(str.find(s[right]) == string::npos){
+                str+=s[right];
+                maxLen = max(maxLen, (int)str.size());
+                right++;
+            }
+            else{
+                str.erase(0, 1);
+                left++;
+            }
+        }
+
+        return maxLen;
+    }
+};
+
+Time Complexity :- O(n^2)
+Space Complexity :- O(1)
+ 
