@@ -1,0 +1,39 @@
+Question 868.) Binary Gap
+Given a positive integer n, find and return the longest distance between any two adjacent 1's in the binary representation of n. If there are no two adjacent 1's, return 0.
+
+Two 1's are adjacent if there are only 0's separating them (possibly no 0's). The distance between two 1's is the absolute difference between their bit positions. For example, the two 1's in "1001" have a distance of 3.
+
+solution.)
+class Solution {
+public:
+
+    string binaryForm(int n){
+        string bin = "";
+        while(n > 0){
+            int dig = n%2;
+            bin += to_string(dig);
+            n/=2;
+        }
+
+        int i=0, j=bin.size()-1;
+        while(i < j){
+            swap(bin[i++], bin[j--]);
+        }
+
+        return bin;
+    }
+
+    int binaryGap(int n) {
+        string binF = binaryForm(n);
+        int count = 0;
+        int left = 0;
+        for(int right=0; right<binF.size(); right++){
+            if(binF[right] == '1'){
+                count = max(count, right-left);
+                left = right;
+            }
+        }
+
+        return count;
+    }
+};
