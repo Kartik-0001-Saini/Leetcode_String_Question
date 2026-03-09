@@ -1,0 +1,61 @@
+Question 1980.) Find Unique Binary String
+Given an array of strings nums containing n unique binary strings each of length n, return a binary string of length n that does not appear in nums. If there are multiple answers, you may return any of them.
+
+solution.)
+class Solution {
+public:
+
+    int convertBinToInt(string str){
+        int count = 0;
+        for(auto i:str){
+            count = count*2 + (i-'0');
+        }
+
+        return count;
+    }
+
+    string convertIntToBin(int num, int n){
+        string res = "";
+        while(num>0){
+            int dig = num%2;
+            res+=to_string(dig);
+            num /= 2;
+        }
+
+        int i=0, j=res.size()-1;
+        while(i < j){
+            swap(res[i++], res[j--]);
+        }
+
+        while(res.size() < n){
+            res = "0" + res;
+        }
+
+        return res;
+    }
+
+    string findDifferentBinaryString(vector<string>& nums) {
+        vector<int> convertArr;
+        for(auto i:nums){
+            int arrEle = convertBinToInt(i);
+            convertArr.push_back(arrEle);
+        }
+
+        // For checking element is present in array or not
+        // But if we check in set it take less time than array
+        unordered_set<int> st(convertArr.begin(), convertArr.end());
+        int n = nums.size();
+        
+        // We are taking this left shift because we go from 0 to
+        // 2^n -1 an this left shift opertor helps us
+        for(int i=0; i<(1<<n); i++){
+            if(st.find(i) == st.end()){
+                string res = convertIntToBin(i, n);
+                return res;
+            }
+        }
+
+        return "";
+    }
+};
+Time Complexity :- O(2^n)
